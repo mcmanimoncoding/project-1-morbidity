@@ -8,55 +8,77 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
- <link rel="stylesheet" type="text/css" href="style.css">
- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+
+    <!-- Linked Leaflet stylesheet below: -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <!-- link leaflet javascript below:  -->
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+        crossorigin=""></script>
+
+    <!-- Below is the styles sheet links from the following stackExchange site: 
+    https://gis.stackexchange.com/questions/231396/conditionally-coloring-specific-country-using-leaflet -->
+
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <!-- 
+    <script src="assets/js/leaflet-heat.js"></script> -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div class="container">
         <nav class="navbar navbar-light bg-info">
-                <a class="navbar-brand" href="#">Geographical Morbidity</a>
-              </nav>
+            <a class="navbar-brand" href="#">Geographical Morbidity</a>
+        </nav>
     </div>
     <div class="container content">
         <div class="row">
 
             <div class="col-2">
-                    <ul class="nav flex-column">
-                            <li class="nav-item">
-                              <a class="nav-link active" href="#">Active</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                          </ul>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
             </div>
 
-       
-        <div class="col-8">
-            <div class="card">
-                <div class="card-body">
-                    This is where our map will go.
+
+            <div class="col-8">
+                <div class="card">
+                    <div id="mapid">
+                        This is where our leaf map will go.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <div class="card">
+                    <div class="card-body">
+                        This is where statistics will go,
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-2">
-                <div class="card">
-                        <div class="card-body">
-                            This is where statistics will go, 
-                        </div>
-                    </div>
-        </div>
-    </div>
-    <footer class="footer bg-dark fixed-bottom">
+        <footer class="footer bg-dark fixed-bottom">
             <div class="container text-center text-md-left">
                 <!-- Copyright -->
                 <div class="footer-copyright text-center mt-1">
@@ -65,9 +87,78 @@
                 <!-- Copyright -->
             </div>
         </footer>
-    
+
 
 
 </body>
+
+<script>
+
+
+    // Leaf API below: 
+
+    var queryURL = "pk.eyJ1IjoidGlmZmVydW4iLCJhIjoiY2puZjA2cjcxMDViZDNrdGV5MG41endhbCJ9.Zy-tYuBmuraOvfqKvGZwYA";
+
+    var mymap = L.map('mapid').setView([51.505, -0.09], 1.5);
+    console.log(mymap)
+
+
+    //     china 	35.86166	104.195397	China
+    // india 20.593684	78.96288	India
+    // united states 	37.09024	-95.712891	United States
+    // indonesia  	-0.789275	113.921327	Indonesia
+    // brazil 	-14.235004	-51.92528	Brazil
+
+    // var marker = L.marker([51.5, -0.09]).addTo(mymap);
+    // var London = [51.505, -0.09]
+
+
+    var countries = {
+        china: {
+            coord: [35.86166, 104.195397],
+            language: "Chinese"
+        },
+        india: {
+            coord: [20.593684, 78.96288],
+            language: "Chinese"
+        },
+        unitedStates: {
+            coord: [37.09024, -95.712891],
+            language: "Chinese"
+        },
+        brazil: {
+            coord: [-14.235004, -51.92528],
+            language: "Chinese"
+        },
+        indonesia: {
+            coord: [-0.789275, 113.921327],
+            language: "Chinese"
+        },
+
+    };
+
+    for (var key in countries) {
+        console.log(countries[key]);
+        L.marker(countries[key].coord).addTo(mymap);
+    }
+
+
+
+
+
+
+
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoidGlmZmVydW4iLCJhIjoiY2puZjA2cjcxMDViZDNrdGV5MG41endhbCJ9.Zy-tYuBmuraOvfqKvGZwYA'
+    }).addTo(mymap);
+
+    countries[1]
+
+</script>
+
 
 </html>
