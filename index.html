@@ -28,8 +28,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-<!-- 
-    <script src="assets/js/leaflet-heat.js"></script> --> 
+    <!-- 
+    <script src="assets/js/leaflet-heat.js"></script> -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
@@ -102,32 +102,45 @@
     var mymap = L.map('mapid').setView([51.505, -0.09], 1.5);
     console.log(mymap)
 
+
+    //     china 	35.86166	104.195397	China
+    // india 20.593684	78.96288	India
+    // united states 	37.09024	-95.712891	United States
+    // indonesia  	-0.789275	113.921327	Indonesia
+    // brazil 	-14.235004	-51.92528	Brazil
+
     // var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-    var circle = L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 1000
-}).addTo(mymap);
+    // var London = [51.505, -0.09]
 
 
+    var countries = {
+        china: {
+            coord: [35.86166, 104.195397],
+            language: "Chinese"
+        },
+        india: {
+            coord: [20.593684, 78.96288],
+            language: "Chinese"
+        },
+        unitedStates: {
+            coord: [37.09024, -95.712891],
+            language: "Chinese"
+        },
+        brazil: {
+            coord: [-14.235004, -51.92528],
+            language: "Chinese"
+        },
+        indonesia: {
+            coord: [-0.789275, 113.921327],
+            language: "Chinese"
+        },
 
-var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap);
+    };
 
-// <!-- 
-// var heat = L.heatLayer([
-// 	[50.5, 30.5, 0.2], // lat, lng, intensity
-//     [50.6, 30.4, 0.5],
-    
-// ], {radius: 25}).addTo(mymap);
-//     -->
-
-
+    for (var key in countries) {
+        console.log(countries[key]);
+        L.marker(countries[key].coord).addTo(mymap);
+    }
 
 
 
@@ -142,6 +155,8 @@ var polygon = L.polygon([
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1IjoidGlmZmVydW4iLCJhIjoiY2puZjA2cjcxMDViZDNrdGV5MG41endhbCJ9.Zy-tYuBmuraOvfqKvGZwYA'
     }).addTo(mymap);
+
+    countries[1]
 
 </script>
 
