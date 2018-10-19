@@ -5,7 +5,10 @@
 ## WHO Codes and info
 
 ### Baseline API Query
-"http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;COUNTRY:USA;YEAR:2016;"
+http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;COUNTRY:USA;YEAR:2016;
+
+### List of SUB categories under GHO primary dimension.
+http://apps.who.int/gho/athena/data/GHOCAT/?format=json
 
 
 ### Disease Cause Group: DISEASECAUSEGROUP
