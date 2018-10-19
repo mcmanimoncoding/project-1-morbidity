@@ -105,29 +105,33 @@
         china: {
             coord: { lat: 35.86166, lng: 104.195397 },
             language: "Chinese",
-            title: "hey we are china"
-
+            title: "hey we are china",
+            weight: 65
         },
         india: {
             coord: { lat: 20.593684, lng: 78.96288 },
             language: "Chinese",
-            title: "india"
+            title: "india",
+            weight: 100
+
         },
         unitedStates: {
             coord: { lat: 37.09024, lng: -95.712891 },
             language: "Chinese",
-            title: "US"
+            title: "US",
+            weight: 30
         },
         brazil: {
             coord: { lat: -14.235004, lng: -51.92528 },
             language: "Chinese",
             title: "brazil",
-            weight: 0.5
+            weight: 45
         },
         indonesia: {
             coord: { lat: -0.789275, lng: 113.921327 },
             language: "Chinese",
-            title: "indonesia"
+            title: "indonesia",
+            weight: 80
         },
     };
 
@@ -153,7 +157,7 @@
 
             heatmapData.push({
                 location: new google.maps.LatLng(countryObj.coord.lat, countryObj.coord.lng),
-                weight: 0.5
+                weight: countryObj.weight
             });
         }
 
