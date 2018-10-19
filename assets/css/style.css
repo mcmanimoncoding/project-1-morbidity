@@ -9,6 +9,10 @@
     align-self: flex-end;
 }
 
-#left-nav  li {
-    cursor: pointer;
+#left-nav .btn {
+    width: 11rem;
+    margin: .2rem auto;
+    margin-left: 1rem;
+    text-align: right;
 }
+

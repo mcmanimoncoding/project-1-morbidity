@@ -7,44 +7,39 @@ var mainController = {
         console.log("running init function");
         //build left nav bar content
         uiController.buildLeftNavBar(data.countries, data.diseaseGroups);
-        //add listeners
-        $(uiController.selectors.leftNav + " li").on("click", mainController.onLeftNavClick);
-
-
-        //This is for testing
-        var usaRespiratory = mainController.fetchHealthData("USA", "U104");
-        var chinaRespiratory = mainController.fetchHealthData("CHN", "U104");
-        console.log(usaRespiratory, chinaRespiratory);
+       
+        
     },
 
     //events for button/nav clicks
-    onLeftNavClick: function () {
-
+    onDropdownClick: function (event) {
+        console.log(this);
+        console.log(event);
         //call the fetch health data function
-        mainController.fetchHealthData();
+        // mainController.fetchHealthData();
 
         //pass data to uiController to populate map
     },
+   
 
     //Functions for retreiving data from WHO 
-    fetchHealthData: function (country, diseaseCauseSubGroup) {
+    fetchHealthData: function (country, diseaseCauseSubGroup, callback) {
 
         //URL for AJAX request
-        var queryUrl = "https://crossorigin.me/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;COUNTRY:" + country + ";YEAR:2016;"
+        var queryUrl = "https://cors-anywhere.herokuapp.com/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;COUNTRY:" + country + ";YEAR:2016;"
 
         //create simplified object and store in data
-
         $.ajax({
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            },
             url: queryUrl,
             method: "GET"
         }).then(function (response) {
             console.log(response);
+            callback(response);
         });
-
     },
-
-
-
 };
 
 
@@ -68,39 +63,42 @@ var uiController = {
         //for loop to loop through countries
 
         countries.forEach(function (country) {
-            var topLevNavItem = $("<li>")
-                .addClass("nav-item dropdown v-flex-align-right")
-                .text(country.name)
-                .data("code", country.code)
+            //add dropdown wrapper
+            var dropDown = $("<div>")
+                .addClass("dropdown v-flex-align-right")
                 .appendTo(uiController.selectors.leftNav);
-            // // add the missing things for dropdown
-            // $("<a>")
-            //     .attr({
-            //         class: "dropdown-toggle",
-            //         role: "button",
-            //         "data-toggle": "dropdown",
-            //         "aria-haspopup": "true",
-            //         "aria-expanded": "false",
-            //         "h-ref": "#"
-            //     })
-            //     .appendTo(topLevNavItem);
+            //add the button
+            $("<button>")
+                .attr({
+                    class: "btn btn-info dropdown-toggle",
+                    type: "button",
+                    id: country.name.toLowerCase() + "-menu-button",
+                    "data-toggle": "dropdown",
+                    "data-code": country.code,
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                })
+                .text(country.name)
+                .on("click", mainController.onDropdownClick)
+                .appendTo(dropDown);
 
-            // var dropdownContainer = $("<ul>")
-            //     .attr({
-            //         class: "dropdown-menu", "aria-labelledby": "navbarDropdownMenuLink"
-            //     })
-            //    .appendTo(topLevNavItem);
+            //add the div for flyout
+            var dropdownContainer = $("<div>")
+                .attr({
+                    class: "dropdown-menu", "aria-labelledby": "navbarDropdownMenuLink"
+                })
+                .appendTo(dropDown);
 
+            //adding the diseases to flyout
             diseases.forEach(function (disease) {
-                $("<li>")
+                $("<a>")
                     .attr({
-                        class: "d-none",
+                        class: "dropdown-item",
                         "h-ref": "#",
                         "data-code": disease.code
                     })
                     .text(disease.name)
-                    //.appendTo(dropdownContainer);
-                    .appendTo(topLevNavItem);
+                    .appendTo(dropdownContainer);
             });
         });
     },
