@@ -135,7 +135,7 @@
 
 
     function myMap() {
-    var zoomLvl = 10;
+    var zoomLvl = 1.5;
 
     // console.log(new google.maps.LatLng(37.782551, -122.445368));
     var mapProp = {
@@ -160,7 +160,7 @@
         }
       ],
       map: map,
-      radius: "50"
+      radius: "300"
     });
 
     map.addListener('zoom_changed', function () {
@@ -169,13 +169,12 @@
       if (zoomLvl !== map.getZoom()) {
         zoomLvl = map.getZoom();
         console.log("Map Zoom Level:", map.getZoom());
-        heatmap.set('radius', zoomLvl * 2.5);
+        heatmap.set('radius', zoomLvl * 20);
         console.log("Heatmap Radius:", heatmap.get('radius'));
       }
 
     });
-
-    // heatmap.set('radius', "50");
+ 
 
   }
     
@@ -183,14 +182,10 @@
 </script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script> -->
 
-<<<<<<< HEAD
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback&libraries=visualization&callback=myMap"></script>
-=======
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization&callback=myMap"></script>
 
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization"></script> -->
->>>>>>> 7d0c804f701e4d1a6948c967bd8391bcec737fee
 
 </html>
