@@ -2,9 +2,10 @@
     margin-bottom: 3rem;
 }
 
-#mapid {
+#googleMap {
     height: 400px;
-    width: 100%; 
+    width: 100%;
+    background-color: red;  
 
 }
 
