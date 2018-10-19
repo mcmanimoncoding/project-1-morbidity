@@ -103,29 +103,31 @@
 
 <script>
 
+    //KEEP /Below are the markers being dropped in order to pinpoint the exact location of each of the countries/ 
+
     var countries = {
         china: {
-            coord: {lat: 35.86166, lng: 104.195397},
+            coord: { lat: 35.86166, lng: 104.195397 },
             language: "Chinese",
             title: "hey we are china"
         },
         india: {
-            coord: {lat: 20.593684, lng: 78.96288},
+            coord: { lat: 20.593684, lng: 78.96288 },
             language: "Chinese",
             title: "india"
         },
         unitedStates: {
-            coord: {lat: 37.09024, lng: -95.712891},
+            coord: { lat: 37.09024, lng: -95.712891 },
             language: "Chinese",
             title: "US"
         },
         brazil: {
-            coord: {lat: -14.235004, lng: -51.92528},
+            coord: { lat: -14.235004, lng: -51.92528 },
             language: "Chinese",
             title: "brazil"
         },
         indonesia: {
-            coord: {lat: -0.789275, lng: 113.921327},
+            coord: { lat: -0.789275, lng: 113.921327 },
             language: "Chinese",
             title: "indonesia"
         },
@@ -137,17 +139,89 @@
         };
         var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-        for (var country in countries){
+        for (var country in countries) {
             var marker = new google.maps.Marker({ position: countries[country].coord, map: map, title: countries[country].title });
         }
     }
 
+    //praciting getting heat maps to show up //
 
+   var heatmapData = [[china].cord];
+
+
+    // const maxI = 200, rad = 21, opac = .6;
+    // var map, heatmap;
+    // function initMap() {
+    //     map = new google.maps.Map(document.getElementById('map'), {
+    //         zoom: 2,
+    //         center: { lat: 37.775, lng: -122.434 },
+    //         mapTypeId: 'roadmap'
+    //     });
+    //     fetch('static/location.json').then(function (response) {
+    //         response.json().then(function (result) {
+    //             let locations = result.locations.map((val) => {
+    //                 return new google.maps.LatLng(val.latitudeE7 * (10 ** -7), val.longitudeE7 * (10 ** -7));
+    //             })
+    //             heatmap = new google.maps.visualization.HeatmapLayer({
+    //                 data: locations,
+    //                 map: map,
+    //                 maxIntensity: maxI,
+    //                 radius: rad,
+    //                 opacity: opac
+    //             });
+    //         });
+    //     });
+    // }
+    // // Function to change the radius of data points on heatmap
+    // function changeRadius(bool) {
+    //     const step = 3, min = 0, max = 50;
+    //     let current = heatmap.get('radius');
+    //     let newValue = toggleUpDown(bool, current, step, min, max);
+    //     heatmap.set('radius', newValue);
+    //     document.getElementById("radiusNum").innerText = newValue;
+    // };
+    // // Function to change the opacity of the heatmap
+    // function changeOpacity(bool) {
+    //     const step = .2, min = 0, max = 1;
+    //     let current = heatmap.get('opacity');
+    //     let newValue = toggleUpDown(bool, current, step, min, max);
+    //     let rounded = round(newValue, 1);
+    //     heatmap.set('opacity', rounded);
+    //     document.getElementById("opacityNum").innerText = rounded;
+    // }
+    // // Function to change maxIntensity of the heatmap
+    // function changeIntensity(bool) {
+    //     const step = 25, min = 0, max = 1000;
+    //     let current = heatmap.get('maxIntensity');
+    //     let newValue = toggleUpDown(bool, current, step, min, max);
+    //     heatmap.set('maxIntensity', newValue);
+    //     document.getElementById("intensityNum").innerText = newValue;
+    // };
+    // // Changes our toggle values and keeps them within our min/max values
+    // function toggleUpDown(bool, current, step, min, max) {
+    //     if (bool && current >= max) return current;
+    //     if (!bool && current <= min) return current;
+    //     if (bool) return current + step;
+    //     return current - step;
+    // }
+    // // Used to round the opacity toggle to one decimal place
+    // function round(value, precision) {
+    //     var multiplier = Math.pow(10, precision || 0);
+    //     return Math.round(value * multiplier) / multiplier;
+    // }
 
 
 </script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script> -->
 
+<<<<<<< HEAD
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback&libraries=visualization&callback=myMap"></script>
+=======
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization&callback=myMap"></script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization"></script> -->
+>>>>>>> 7d0c804f701e4d1a6948c967bd8391bcec737fee
 
 </html>
