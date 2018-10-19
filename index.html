@@ -121,7 +121,8 @@
         brazil: {
             coord: { lat: -14.235004, lng: -51.92528 },
             language: "Chinese",
-            title: "brazil"
+            title: "brazil",
+            weight: 0.5
         },
         indonesia: {
             coord: { lat: -0.789275, lng: 113.921327 },
@@ -129,55 +130,54 @@
             title: "indonesia"
         },
     };
-    
 
-//  Below is the function for the heat
+
+    //  Below is the function for the heat
 
 
     function myMap() {
-    var zoomLvl = 1.5;
+        var zoomLvl = 1.5;
 
-    // console.log(new google.maps.LatLng(37.782551, -122.445368));
-    var mapProp = {
-      center: new google.maps.LatLng(37.782551, -122.445368),
-      zoom: zoomLvl,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        // console.log(new google.maps.LatLng(37.782551, -122.445368));
+        var mapProp = {
+            center: new google.maps.LatLng(37.782551, -122.445368),
+            zoom: zoomLvl,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-    for (var country in countries) {
-      var marker = new google.maps.Marker({ position: countries[country].coord, map: map, title: countries[country].title });
+        var heatmapData = [];
+
+        for (var country in countries) {
+            var countryObj = countries[country];
+            var marker = new google.maps.Marker({ position: countryObj.coord, map: map, title: countryObj.title });
+
+            heatmapData.push({
+                location: new google.maps.LatLng(countryObj.coord.lat, countryObj.coord.lng),
+                weight: 0.5
+            });
+        }
+
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData,
+            map: map,
+            radius: "300"
+        });
+
+        map.addListener('zoom_changed', function () {
+            // 3 seconds after the center of the map has changed, pan back to the
+            // marker.
+            if (zoomLvl !== map.getZoom()) {
+                zoomLvl = map.getZoom();
+                console.log("Map Zoom Level:", map.getZoom());
+                heatmap.set('radius', zoomLvl * 20);
+                console.log("Heatmap Radius:", heatmap.get('radius'));
+            }
+
+        });
+
+
     }
 
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: [
-        {
-          location: new google.maps.LatLng(37.782551, -122.445368),
-          weight: 0.5
-        },
-        {
-          location: new google.maps.LatLng(37.782551, -122.445368),
-          weight: 0.5
-        }
-      ],
-      map: map,
-      radius: "300"
-    });
-
-    map.addListener('zoom_changed', function () {
-      // 3 seconds after the center of the map has changed, pan back to the
-      // marker.
-      if (zoomLvl !== map.getZoom()) {
-        zoomLvl = map.getZoom();
-        console.log("Map Zoom Level:", map.getZoom());
-        heatmap.set('radius', zoomLvl * 20);
-        console.log("Heatmap Radius:", heatmap.get('radius'));
-      }
-
-    });
- 
-
-  }
-    
 
 </script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script> -->
