@@ -118,7 +118,7 @@ var uiController = {
                     "class": "btn btn-info btn-sm",
                     "data-code": disease.code,
                 })
-                .text(disease.name)
+                .text(disease.title)
                 .on("click", mainController.onDropDownClick)
                 .appendTo(dropDown);
 
@@ -157,7 +157,7 @@ var uiController = {
                         "h-ref": "#",
                         "data-code": country.code
                     })
-                    .text(country.name)
+                    .text(country.title)
                     .on("click", mainController.onDropDownItemClick)
                     .appendTo(dropdownContainer);
 
@@ -224,22 +224,22 @@ var data = {
     //Build JSON array of Disease Cause Groups/SubGroups
     diseaseGroups: [
         {
-            name: "Cardiovascular Disease",
+            title: "Cardiovascular Disease",
             code: "U104",
             value: 0
         },
         {
-            name: "Diabetes Melitus",
+            title: "Diabetes Melitus",
             code: "U079",
             value: 0
         },
         {
-            name: "Malignant Neoplasms",
+            title: "Malignant Neoplasms",
             code: "U060",
             value: 0
         },
         {
-            name: "Respiratory Diseases",
+            title: "Respiratory Diseases",
             code: "U148",
             value: 0
         }
