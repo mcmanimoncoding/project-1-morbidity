@@ -7,8 +7,8 @@ var mainController = {
         console.log("running init function");
         //build left nav bar content
         uiController.buildLeftNavBar(data.countries, data.diseaseGroups);
-       
-        
+        uiController.populateMap(data.countries, data.diseaseGroups);
+
     },
 
     //events for button/nav clicks
@@ -20,7 +20,7 @@ var mainController = {
 
         //pass data to uiController to populate map
     },
-   
+
 
     //Functions for retreiving data from WHO 
     fetchHealthData: function (country, diseaseCauseSubGroup, callback) {
@@ -52,11 +52,47 @@ var uiController = {
     },
 
     //Function for mapping data to Leaflet API
-    populateMap: function () {
-        //use health data and leaflet API to create heat map
+    populateMap: function (countries) {
+        var zoomLvl = 10;
+
+        // console.log(new google.maps.LatLng(37.782551, -122.445368));
+        var mapProp = {
+            center: new google.maps.LatLng(37.782551, -122.445368),
+            zoom: zoomLvl,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+        for (var country in countries) {
+            var marker = new google.maps.Marker({ position: countries[country].coord, map: map, title: countries[country].title });
+        }
+
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: [
+                {
+                    location: new google.maps.LatLng(37.782551, -122.445368),
+                    weight: 0.5
+                },
+                {
+                    location: new google.maps.LatLng(37.782551, -122.445368),
+                    weight: 0.5
+                }
+            ],
+            map: map,
+            radius: "50"
+        });
+
+        map.addListener('zoom_changed', function () {
+            // 3 seconds after the center of the map has changed, pan back to the
+            // marker.
+            if (zoomLvl !== map.getZoom()) {
+                zoomLvl = map.getZoom();
+                console.log("Map Zoom Level:", map.getZoom());
+                heatmap.set('radius', zoomLvl * 2.5);
+                console.log("Heatmap Radius:", heatmap.get('radius'));
+            }
+
+        });
     },
-
-
 
     //Use the API data to build the left navigation bar 
     buildLeftNavBar: function (countries, diseases) {
@@ -107,38 +143,57 @@ var uiController = {
 //Build Controller object for data
 var data = {
 
-
     //Build JSON array of Country objects 
-    //Possibly need array of coordinates for map
+    // countries geographical locations 
+    // china            35.86166	104.195397	China
+    // india            20.593684	78.96288	India
+    // united states    37.09024	-95.712891	United States
+    // indonesia  	    -0.789275	113.921327	Indonesia
+    // brazil 	       -14.235004	-51.92528	Brazil
     countries: [
-        {
-            name: "Brazil",
-            code: "BRA",
-            population: 205823665
-        },
         {
             name: "China",
             code: "CHN",
-            population: 1373541278
+            population: 1373541278,
+            coord: { lat: 35.86166, lng: 104.195397 },
+            language: "Chinese",
+            title: "hey we are china"
+
         },
         {
             name: "India",
             code: "IND",
-            population: 1266883598
-        },
-        {
-            name: "Indonesia",
-            code: "IDN",
-            population: 258316051
+            population: 1266883598,
+            coord: { lat: 20.593684, lng: 78.96288 },
+            language: "Chinese",
+            title: "india"
         },
         {
             name: "United States",
             code: "USA",
-            population: 323995528
-        }
-
-
+            population: 323995528,
+            coord: { lat: 37.09024, lng: -95.712891 },
+            language: "Chinese",
+            title: "US"
+        },
+        {
+            name: "Brazil",
+            code: "BRA",
+            population: 205823665,
+            coord: { lat: -14.235004, lng: -51.92528 },
+            language: "Chinese",
+            title: "brazil"
+        },
+        {
+            name: "Indonesia",
+            code: "IDN",
+            population: 258316051,
+            coord: { lat: -0.789275, lng: 113.921327 },
+            language: "Chinese",
+            title: "indonesia"
+        },
     ],
+
     //Build JSON array of Disease Cause Groups/SubGroups
     diseaseGroups: [
         {
@@ -169,3 +224,15 @@ var data = {
 
 // add jquery listener for document ready
 $(document).ready(mainController.init);
+
+
+
+
+
+
+
+
+
+
+
+

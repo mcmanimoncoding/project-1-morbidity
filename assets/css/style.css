@@ -1,18 +1,83 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One');
+
+/* Set the box sizing so the size includes padding and border */
+* {
+    box-sizing: border-box;
+  }
+
+.v-flex-align-right {
+    align-self: flex-end;
+}
+
+body {
+    font-family: 'Marcellus SC', serif;
+    font-size: 18px;
+}
+
+header {
+    color: white;
+    text-align: center;
+    height: 60px;
+}
+
 .content {
     margin-bottom: 3rem;
 }
 
+.container > .row > .col {
+    /* border: solid 1px; */
 
-
-.v-flex-align-right {
-    
-    align-self: flex-end;
 }
 
 #left-nav .btn {
-    width: 11rem;
-    margin: .2rem auto;
-    margin-left: 1rem;
+    width: 10rem;
+    margin-bottom: .2rem;
+    /* margin-left: 1rem; */
     text-align: right;
 }
+
+#left-nav .btn:first-of-type {
+    margin-top: 0;
+}
+
+#googleMap {
+    height: 400px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+footer {
+    height: 2rem;
+    line-height: 2rem;
+    color: white;
+}
+
+footer .footer-copyright {
+    font-size: small;
+}
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+
+}
+
 
