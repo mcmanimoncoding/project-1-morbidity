@@ -15,10 +15,13 @@ var mainController = {
 
     // Left half of split button click
     onDropDownClick: function (event) {
+        var codes = $(this).data("codes");
+
         console.log("Main Dropdown button clicked (disease group).", event);
+        console.log(codes);
 
         //call the fetch health data function
-        mainController.fetchHealthData($(this.data("codes")), function(){
+        mainController.fetchHealthData(codes, function () {
             //  process the data
 
             // pass the processed data to uiController to populate map
@@ -29,10 +32,14 @@ var mainController = {
 
     // drop down menu item click
     onDropDownItemClick: function (event) {
-        console.log("Main Dropdown button clicked (disease group).", event);
+        var codes = $(this).data("codes");
+
+        console.log("Dropdown item clicked (disease group).");
+        console.log(event);
+        console.log(codes);
 
         //call the fetch health data function
-        mainController.fetchHealthData($(this.data("codes")), function(){
+        mainController.fetchHealthData(codes, function () {
             //  process the data
 
             // pass the processed data to uiController to populate map
@@ -42,10 +49,12 @@ var mainController = {
 
 
     //Functions for retreiving data from WHO 
-    fetchHealthData: function (country, diseaseCauseSubGroup, callback) {
+    fetchHealthData: function (codes, callback) {
+        // split the codes string so we can pass them as an argument
+        var codesArray = codes.split("|");
 
         //URL for AJAX request
-        var queryUrl = "https://cors-anywhere.herokuapp.com/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;COUNTRY:" + country + ";YEAR:2016;"
+        var queryUrl = "https://cors-anywhere.herokuapp.com/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;YEAR:2016;COUNTRY:" + codesArray[1];
 
         //create simplified object and store in data
         $.ajax({
@@ -89,7 +98,7 @@ var uiController = {
                 weight: countryObj.weight
             });
         }
-        
+
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             map: map,
@@ -123,7 +132,7 @@ var uiController = {
                 .attr({
                     "type": "button",
                     "class": "btn btn-info btn-sm",
-                    "data-code": disease.code,
+                    "data-codes": disease.code + "|*",
                 })
                 .text(disease.title)
                 .on("click", mainController.onDropDownClick)
@@ -153,7 +162,6 @@ var uiController = {
                     class: "dropdown-menu dropdown-menu-right text-left",
                     "aria-labelledby": "navbarDropdownMenuLink"
                 })
-                .on("click", mainController.onDropDownItemClick)
                 .appendTo(dropDown);
 
             //adding the diseases to flyout
@@ -162,7 +170,7 @@ var uiController = {
                     .attr({
                         class: "dropdown-item",
                         "h-ref": "#",
-                        "data-code": disease.code + "|" +country.code
+                        "data-codes": disease.code + "|" + country.code
                     })
                     .text(country.title)
                     .on("click", mainController.onDropDownItemClick)
@@ -230,22 +238,26 @@ var data = {
     diseaseGroups: [
         {
             title: "Cardiovascular Disease",
-            code: "U104",
+            dimension: "GHECAUSES",
+            code: "GHE110",
             value: 0
         },
         {
             title: "Diabetes Melitus",
-            code: "U079",
+            dimension: "GHECAUSES",
+            code: "GHE080",
             value: 0
         },
         {
             title: "Malignant Neoplasms",
-            code: "U060",
+            dimension: "GHECAUSES",
+            code: "GHE061",
             value: 0
         },
         {
             title: "Respiratory Diseases",
-            code: "U148",
+            dimension: "GHECAUSES",
+            code: "GHE117",
             value: 0
         }
     ],
