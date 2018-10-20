@@ -190,6 +190,10 @@ var data = {
     // united states    37.09024	-95.712891	United States
     // indonesia  	    -0.789275	113.921327	Indonesia
     // brazil 	       -14.235004	-51.92528	Brazil
+
+    // Create weight variable using statistical data
+        // 
+
     countries: [
         {
             code: "BRA",
