@@ -18,9 +18,13 @@ var mainController = {
         console.log("Main Dropdown button clicked (disease group).", event);
 
         //call the fetch health data function
-        // mainController.fetchHealthData();
+        mainController.fetchHealthData($(this.data("codes")), function(){
+            //  process the data
 
-        //pass data to uiController to populate map
+            // pass the processed data to uiController to populate map
+
+        });
+
     },
 
     // drop down menu item click
@@ -28,9 +32,12 @@ var mainController = {
         console.log("Main Dropdown button clicked (disease group).", event);
 
         //call the fetch health data function
-        // mainController.fetchHealthData();
+        mainController.fetchHealthData($(this.data("codes")), function(){
+            //  process the data
 
-        //pass data to uiController to populate map
+            // pass the processed data to uiController to populate map
+
+        });
     },
 
 
@@ -155,13 +162,11 @@ var uiController = {
                     .attr({
                         class: "dropdown-item",
                         "h-ref": "#",
-                        "data-code": country.code
+                        "data-code": disease.code + "|" +country.code
                     })
                     .text(country.title)
                     .on("click", mainController.onDropDownItemClick)
                     .appendTo(dropdownContainer);
-
-
             });
         });
     },
