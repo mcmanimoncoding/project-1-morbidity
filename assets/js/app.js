@@ -12,9 +12,21 @@ var mainController = {
     },
 
     //events for button/nav clicks
-    onDropdownClick: function (event) {
-        console.log(this);
-        console.log(event);
+
+    // Left half of split button click
+    onDropDownClick: function (event) {
+        console.log("Main Dropdown button clicked (disease group).", event);
+
+        //call the fetch health data function
+        // mainController.fetchHealthData();
+
+        //pass data to uiController to populate map
+    },
+
+    // drop down menu item click
+    onDropDownItemClick: function (event) {
+        console.log("Main Dropdown button clicked (disease group).", event);
+
         //call the fetch health data function
         // mainController.fetchHealthData();
 
@@ -48,37 +60,33 @@ var uiController = {
 
     //Add an object to store the selectors
     selectors: {
+        googleMap: "#googleMap",
         leftNav: "#left-nav"
     },
 
     //Function for mapping data to Leaflet API
     populateMap: function (countries) {
-        var zoomLvl = 10;
-
+        var zoomLvl = 1.5;
         // console.log(new google.maps.LatLng(37.782551, -122.445368));
         var mapProp = {
-            center: new google.maps.LatLng(37.782551, -122.445368),
+            center: new google.maps.LatLng(20, 20),
             zoom: zoomLvl,
         };
-        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
+        var map = new google.maps.Map($(this.selectors.googleMap)[0], mapProp);
+        var heatmapData = [];
         for (var country in countries) {
-            var marker = new google.maps.Marker({ position: countries[country].coord, map: map, title: countries[country].title });
+            var countryObj = countries[country];
+            var marker = new google.maps.Marker({ position: countryObj.coord, map: map, title: countryObj.title });
+            heatmapData.push({
+                location: new google.maps.LatLng(countryObj.coord.lat, countryObj.coord.lng),
+                weight: countryObj.weight
+            });
         }
-
+        
         var heatmap = new google.maps.visualization.HeatmapLayer({
-            data: [
-                {
-                    location: new google.maps.LatLng(37.782551, -122.445368),
-                    weight: 0.5
-                },
-                {
-                    location: new google.maps.LatLng(37.782551, -122.445368),
-                    weight: 0.5
-                }
-            ],
+            data: heatmapData,
             map: map,
-            radius: "50"
+            radius: "300"
         });
 
         map.addListener('zoom_changed', function () {
@@ -87,10 +95,9 @@ var uiController = {
             if (zoomLvl !== map.getZoom()) {
                 zoomLvl = map.getZoom();
                 console.log("Map Zoom Level:", map.getZoom());
-                heatmap.set('radius', zoomLvl * 2.5);
+                heatmap.set('radius', zoomLvl * 20);
                 console.log("Heatmap Radius:", heatmap.get('radius'));
             }
-
         });
     },
 
@@ -98,43 +105,63 @@ var uiController = {
     buildLeftNavBar: function (countries, diseases) {
         //for loop to loop through countries
 
-        countries.forEach(function (country) {
+        diseases.forEach(function (disease) {
             //add dropdown wrapper
             var dropDown = $("<div>")
-                .addClass("dropdown v-flex-align-right")
+                .addClass("btn-group dropright")
                 .appendTo(uiController.selectors.leftNav);
-            //add the button
+
+            // add left side of split button
             $("<button>")
                 .attr({
-                    class: "btn btn-info dropdown-toggle",
-                    type: "button",
-                    id: country.name.toLowerCase() + "-menu-button",
+                    "type": "button",
+                    "class": "btn btn-info btn-sm",
+                    "data-code": disease.code,
+                })
+                .text(disease.title)
+                .on("click", mainController.onDropDownClick)
+                .appendTo(dropDown);
+
+
+            //add the right side of the split button
+            var rightButton = $("<button>")
+                .attr({
+                    "type": "button",
+                    "class": "btn btn-sm btn-info dropdown-toggle dropdown-toggle-split",
                     "data-toggle": "dropdown",
-                    "data-code": country.code,
                     "aria-haspopup": "true",
                     "aria-expanded": "false"
                 })
-                .text(country.name)
-                .on("click", mainController.onDropdownClick)
                 .appendTo(dropDown);
+
+            $("<span>")
+                .addClass("sr-only")
+                .text("Toggle Dropdown")
+                .appendTo(rightButton);
+
 
             //add the div for flyout
             var dropdownContainer = $("<div>")
                 .attr({
-                    class: "dropdown-menu", "aria-labelledby": "navbarDropdownMenuLink"
+                    class: "dropdown-menu dropdown-menu-right text-left",
+                    "aria-labelledby": "navbarDropdownMenuLink"
                 })
+                .on("click", mainController.onDropDownItemClick)
                 .appendTo(dropDown);
 
             //adding the diseases to flyout
-            diseases.forEach(function (disease) {
+            countries.forEach(function (country) {
                 $("<a>")
                     .attr({
                         class: "dropdown-item",
                         "h-ref": "#",
-                        "data-code": disease.code
+                        "data-code": country.code
                     })
-                    .text(disease.name)
+                    .text(country.title)
+                    .on("click", mainController.onDropDownItemClick)
                     .appendTo(dropdownContainer);
+
+
             });
         });
     },
@@ -152,67 +179,67 @@ var data = {
     // brazil 	       -14.235004	-51.92528	Brazil
     countries: [
         {
-            name: "China",
+            code: "BRA",
+            population: 205823665,
+            coord: { lat: -14.235004, lng: -51.92528 },
+            language: "Portuguese",
+            title: "Brazil",
+            weight: 80
+        },
+        {
             code: "CHN",
             population: 1373541278,
             coord: { lat: 35.86166, lng: 104.195397 },
             language: "Chinese",
-            title: "hey we are china"
+            title: "China",
+            weight: 80
 
         },
         {
-            name: "India",
             code: "IND",
             population: 1266883598,
             coord: { lat: 20.593684, lng: 78.96288 },
-            language: "Chinese",
-            title: "india"
+            language: "Hindi",
+            title: "India",
+            weight: 80
         },
         {
-            name: "United States",
-            code: "USA",
-            population: 323995528,
-            coord: { lat: 37.09024, lng: -95.712891 },
-            language: "Chinese",
-            title: "US"
-        },
-        {
-            name: "Brazil",
-            code: "BRA",
-            population: 205823665,
-            coord: { lat: -14.235004, lng: -51.92528 },
-            language: "Chinese",
-            title: "brazil"
-        },
-        {
-            name: "Indonesia",
             code: "IDN",
             population: 258316051,
             coord: { lat: -0.789275, lng: 113.921327 },
-            language: "Chinese",
-            title: "indonesia"
+            language: "Indonesian",
+            title: "Indonesia",
+            weight: 80
         },
+        {
+            code: "USA",
+            population: 323995528,
+            coord: { lat: 37.09024, lng: -95.712891 },
+            language: "English",
+            title: "United States",
+            weight: 80
+        }
     ],
 
     //Build JSON array of Disease Cause Groups/SubGroups
     diseaseGroups: [
         {
-            name: "Cardiovascular Disease",
+            title: "Cardiovascular Disease",
             code: "U104",
             value: 0
         },
         {
-            name: "Diabetes Melitus",
+            title: "Diabetes Melitus",
             code: "U079",
             value: 0
         },
         {
-            name: "Malignant Neoplasms",
+            title: "Malignant Neoplasms",
             code: "U060",
             value: 0
         },
         {
-            name: "Respiratory Diseases",
+            title: "Respiratory Diseases",
             code: "U148",
             value: 0
         }
