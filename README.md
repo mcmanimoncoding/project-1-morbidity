@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 7664f01755fc96156f263cfe5dc5e17ffc87b8dc
 # project-1-morbidity
 
 
@@ -83,3 +87,25 @@ This function is currently blocked in the public system.
 jsonp   When specifying a JSON format, adding the callback or jsonp parameter will wrap the returned javascript in the specified function.
     cache   The cache parameter is used to force certain caching behaviours when the cache is enabled on the web service. The only currently allowed option is refresh which forces the web service to regenerate the underlying XML even if there is a non-expired version of the data currently available in the cache.
     x-* x- parameters are arbitrary. They are passed to the web services and returned through the QueryParameter element in the XML response. They are a way of providing user specified input to XSLT transforms. Note that when X parameters are used, the transformed response (generated if you have specified format and profile parameters) will not be cached however the underlying XML will continue to be cached.
+<<<<<<< HEAD
+=======
+=======
+china 	35.86166	104.195397	China
+india 20.593684	78.96288	India
+united states 	37.09024	-95.712891	United States
+indonesia  	-0.789275	113.921327	Indonesia
+brazil 	-14.235004	-51.92528	Brazil
+
+Heat Map Notes: 
+Source: https://codeburst.io/how-i-created-a-heatmap-of-my-location-history-with-javascript-google-maps-972a2d1be240
+
+Radius — Changes the radius of each data point. Range 0–50.
+Intensity — Changes the maximum intensity of the data. Range 0–1000.
+Opacity — Changes the opacity of the HeatMap overlay. Range: 0–1.
+
+
+Items to consider/research futher.... 
+
+1. The heat map code uses JSON. Do we need a link for JSON and an "AJAX" call?? 
+>>>>>>> b9a6dd2e293be8ec9c43ed87ebce075c7af4c04f
+>>>>>>> 7664f01755fc96156f263cfe5dc5e17ffc87b8dc

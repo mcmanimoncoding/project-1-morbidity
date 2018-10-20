@@ -5,192 +5,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Geographical Mortality from Chronic Disease</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
-    <!-- Below is the styles sheet links from the following stackExchange site: 
-    https://gis.stackexchange.com/questions/231396/conditionally-coloring-specific-country-using-leaflet -->
-    <!-- 
-    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" /> -->
-
-
-    <!-- Google maps api key and script below -->
-    <!-- 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALI87T4rx5Z6cAExO87Uc4F0iop4daIyQ
-    &callback=initMap">
-    </script> -->
-
-
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-light bg-info">
-            <a class="navbar-brand" href="#">Geographical Morbidity</a>
-        </nav>
-    </div>
-    <div class="container content">
-        <div class="row">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization&callback=myMap"></script> -->
+    <script src="assets/js/app.js"></script>
 
-            <div class="col-2">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-            </div>
+    <header class="bg-info">
+        <div class="container">
+            <h1>Geographical Mortality from Chronic Disease</h1>
+        </div>
+    </header>
 
-
-            <div class="col-8">
-                <div class="card">
-                    <div id="googleMap">
-                        THIS IS WHERE OUR GOOGLE MAP WILL GO
+    <div class="content mt-2">
+        <div class="container">
+            <div class="row">
+                <div class=" col col-12 col-lg-2">
+                    <div id="left-nav" class="row justify-content-center">
                     </div>
                 </div>
-            </div>
 
-            <div class="col-2">
-                <div class="card">
-                    <div class="card-body">
-                        This is where statistics will go,
+                <div class="col col-12 col-lg-7">
+                    <div id="googleMap">
+                    </div>
+                </div>
+
+                <div class="col col-12 col-lg-3">
+                    <div class="card m-0 p0">
+                        <div class="card-header">
+                            Statistics
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer bg-dark fixed-bottom">
-            <div class="container text-center text-md-left">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center mt-1">
-                    <span class="muted-text">Copyright, Team Pandemic, 2018 ©</span>
-                </div>
-                <!-- Copyright -->
+    </div>
+
+    <footer class="footer bg-info fixed-bottom">
+        <div class="container">
+
+        </div>
+
+        <div class="text-center text-md-left">
+            <!-- Copyright -->
+            <div class="footer-copyright text-center">
+                <span class="muted-text">Copyright, Team Pandemic, 2018 ©</span>
             </div>
-        </footer>
+            <!-- Copyright -->
+        </div>
+    </footer>
+
+    <!-- <script>
+        //KEEP /Below are the markers being dropped in order to pinpoint the exact location of each of the countries/ 
+        var countries = {
+            china: {
+                coord: { lat: 35.86166, lng: 104.195397 },
+                language: "Chinese",
+                title: "hey we are china"
+            },
+            india: {
+                coord: { lat: 20.593684, lng: 78.96288 },
+                language: "Chinese",
+                title: "india"
+            },
+            unitedStates: {
+                coord: { lat: 37.09024, lng: -95.712891 },
+                language: "Chinese",
+                title: "US"
+            },
+            brazil: {
+                coord: { lat: -14.235004, lng: -51.92528 },
+                language: "Chinese",
+                title: "brazil"
+            },
+            indonesia: {
+                coord: { lat: -0.789275, lng: 113.921327 },
+                language: "Chinese",
+                title: "indonesia"
+            },
+        };
+
+        //  Below is the function for the heat
+        function myMap() {
+            console.log("Running myMap");
+
+            var zoomLvl = 10;
+            var mapProp = {
+                center: new google.maps.LatLng(37.782551, -122.445368),
+                zoom: zoomLvl,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            for (var country in countries) {
+                var marker = new google.maps.Marker({ position: countries[country].coord, map: map, title: countries[country].title });
+            }
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: [
+                    {
+                        location: new google.maps.LatLng(37.782551, -122.445368),
+                        weight: 0.5
+                    },
+                    {
+                        location: new google.maps.LatLng(37.782551, -122.445368),
+                        weight: 0.5
+                    }
+                ],
+                map: map,
+                radius: "50"
+            });
+
+            map.addListener('zoom_changed', function () {
+                // 3 seconds after the center of the map has changed, pan back to the
+                // marker.
+                if (zoomLvl !== map.getZoom()) {
+                    zoomLvl = map.getZoom();
+                    console.log("Map Zoom Level:", map.getZoom());
+                    heatmap.set('radius', zoomLvl * 2.5);
+                    console.log("Heatmap Radius:", heatmap.get('radius'));
+                }
+            });
+        }
+
+    </script> -->
 
 </body>
-
-<script>
-
-    // countries geographical locations 
-    // //     china 	35.86166	104.195397	China
-    // // india 20.593684	78.96288	India
-    // // united states 	37.09024	-95.712891	United States
-    // // indonesia  	-0.789275	113.921327	Indonesia
-    // // brazil 	-14.235004	-51.92528	Brazil
-    // // var marker = L.marker([51.5, -0.09]).addTo(mymap);
-    // // var London = [51.505, -0.09]
-
-
-
-</script> -->
-
-<script>
-
-    //KEEP /Below are the markers being dropped in order to pinpoint the exact location of each of the countries/ 
-
-    var countries = {
-        china: {
-            coord: { lat: 35.86166, lng: 104.195397 },
-            language: "Chinese",
-            title: "hey we are china",
-            weight: 15
-
-        },
-        india: {
-            coord: { lat: 20.593684, lng: 78.96288 },
-            language: "Chinese",
-            title: "india",
-            weight: 20
-        },
-        unitedStates: {
-            coord: { lat: 37.09024, lng: -95.712891 },
-            language: "Chinese",
-            title: "US",
-            weight: 30,
-        },
-        brazil: {
-            coord: { lat: -14.235004, lng: -51.92528 },
-            language: "Chinese",
-            title: "brazil",
-            weight: 10,
-        },
-        indonesia: {
-            coord: { lat: -0.789275, lng: 113.921327 },
-            language: "Chinese",
-            title: "indonesia",
-            weight: 5
-        },
-    };
-    
-
-//  Below is the function for the heat
-
-
-    function myMap() {
-    var zoomLvl = 1.5;
-
-    // console.log(new google.maps.LatLng(37.782551, -122.445368));
-    var mapProp = {
-      center: new google.maps.LatLng(20, 20),
-      zoom: zoomLvl,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-    var heatmapData = [];
-
-    for (var country in countries) {
-        var countryObj = countries[country];
-      var marker = new google.maps.Marker({ position: countryObj.coord, map: map, title: countryObj.title });
-
-        heatmapData.push({
-            location: new google.maps.LatLng(countryObj.coord.lat, countryObj.coord.lng) , 
-            weight: countryObj.weight
-        })
-
-    }
-
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData,
-      map: map,
-      radius: "300"
-    });
-
-    map.addListener('zoom_changed', function () {
-      // 3 seconds after the center of the map has changed, pan back to the
-      // marker.
-      if (zoomLvl !== map.getZoom()) {
-        zoomLvl = map.getZoom();
-        console.log("Map Zoom Level:", map.getZoom());
-        heatmap.set('radius', zoomLvl * 20);
-        console.log("Heatmap Radius:", heatmap.get('radius'));
-      }
-
-    });
- 
-
-  }
-    
-
-</script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script> -->
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization&callback=myMap"></script>
-
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&callback=myMap"></script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization"></script> -->
 
 </html>
