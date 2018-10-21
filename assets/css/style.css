@@ -78,31 +78,42 @@ footer .footer-copyright {
 }
 
 
-.statistics {
+/* .statistics {
 
 background-color: blue; 
 
-}
+} */
 
 .statistics .card-header {
-background-color: lightgrey; 
+background-color: white; 
 text-align: center; 
+color:black;
+padding: 15px; 
+}
+
+
+.statistics .disease-title {
+background-color: white; 
 color: #17a2b8;
+text-align: center; 
+padding: 10px; 
+font-family: 'Anton', sans-serif;
+list-style: none;
+
 
 }
 
 .statistics .list-group {
-
-background-color: hotpink; 
-
+    background-color: #17a2b8;
+    color:white; 
+    text-align: center; 
+  
 }
-
-.statistics .disease-title {
-
-background-color: orange; 
-}
-
+    
 .statistics .list-group-item {
-background-color: purple; 
+background-color:white;
+color: black; 
+text-align: center;
+font-family: 'Anton', sans-serif; 
 
 }
