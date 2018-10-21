@@ -77,11 +77,32 @@ footer .footer-copyright {
 
 }
 
-#statistics {
-/* height: 100px; 
-width: 45px;  */
-color: red; 
+
+.statistics {
+
+background-color: blue; 
 
 }
 
+.statistics .card-header {
+background-color: lightgrey; 
+text-align: center; 
+color: #17a2b8;
 
+}
+
+.statistics .list-group {
+
+background-color: hotpink; 
+
+}
+
+.statistics .disease-title {
+
+background-color: orange; 
+}
+
+.statistics .list-group-item {
+background-color: purple; 
+
+}
