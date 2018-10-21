@@ -89,6 +89,8 @@ background-color: lightgrey;
 text-align: center; 
 color: #17a2b8;
 
+
+
 }
 
 .statistics .list-group {
@@ -100,9 +102,11 @@ background-color: hotpink;
 .statistics .disease-title {
 
 background-color: orange; 
+padding: 5%;
 }
 
 .statistics .list-group-item {
 background-color: purple; 
+padding: 1%;
 
 }
