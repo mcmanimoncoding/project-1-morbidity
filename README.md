@@ -1,7 +1,11 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7664f01755fc96156f263cfe5dc5e17ffc87b8dc
+=======
+>>>>>>> 81dbadbd97ef8363efa5396dfa39b66022d7a1a2
+>>>>>>> 3c2084665e66f8b574540ead9b4a1d42e7e9ae23
 # project-1-morbidity
 
 
@@ -108,4 +112,8 @@ Items to consider/research futher....
 
 1. The heat map code uses JSON. Do we need a link for JSON and an "AJAX" call?? 
 >>>>>>> b9a6dd2e293be8ec9c43ed87ebce075c7af4c04f
+<<<<<<< HEAD
 >>>>>>> 7664f01755fc96156f263cfe5dc5e17ffc87b8dc
+=======
+>>>>>>> 81dbadbd97ef8363efa5396dfa39b66022d7a1a2
+>>>>>>> 3c2084665e66f8b574540ead9b4a1d42e7e9ae23
