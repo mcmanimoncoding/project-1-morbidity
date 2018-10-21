@@ -54,7 +54,19 @@ var mainController = {
         var codesArray = codes.split("|");
 
         //URL for AJAX request
-        var queryUrl = "https://cors-anywhere.herokuapp.com/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;YEAR:2016;COUNTRY:" + codesArray[1];
+        var queryUrl = "https://cors-anywhere.herokuapp.com/http://apps.who.int/gho/athena/data/GHO/SDG_SH_DTH_RNCOM?profile=simple&format=json&filter=SEX:BTSX;YEAR:2016;GHECAUSES:" + codesArray[0];
+
+        if (codesArray[1]=== "*") {
+            data.countries.forEach(function(country){
+               queryUrl+=";COUNTRY:"+country.code; 
+            });
+
+        }
+        else {
+            queryUrl+=";COUNTRY:"+codesArray[1]; 
+        }
+        console.log(queryUrl);
+        
 
         //create simplified object and store in data
         $.ajax({
@@ -183,13 +195,6 @@ var uiController = {
 //Build Controller object for data
 var data = {
 
-    //Build JSON array of Country objects 
-    // countries geographical locations 
-    // china            35.86166	104.195397	China
-    // india            20.593684	78.96288	India
-    // united states    37.09024	-95.712891	United States
-    // indonesia  	    -0.789275	113.921327	Indonesia
-    // brazil 	       -14.235004	-51.92528	Brazil
     countries: [
         {
             code: "BRA",
@@ -197,7 +202,8 @@ var data = {
             coord: { lat: -14.235004, lng: -51.92528 },
             language: "Portuguese",
             title: "Brazil",
-            weight: 80
+            weight: 80,
+            includeInQuery: true
         },
         {
             code: "CHN",
@@ -205,7 +211,8 @@ var data = {
             coord: { lat: 35.86166, lng: 104.195397 },
             language: "Chinese",
             title: "China",
-            weight: 80
+            weight: 80,
+            includeInQuery: true
 
         },
         {
@@ -214,7 +221,8 @@ var data = {
             coord: { lat: 20.593684, lng: 78.96288 },
             language: "Hindi",
             title: "India",
-            weight: 80
+            weight: 80,
+            includeInQuery: true
         },
         {
             code: "IDN",
@@ -222,7 +230,8 @@ var data = {
             coord: { lat: -0.789275, lng: 113.921327 },
             language: "Indonesian",
             title: "Indonesia",
-            weight: 80
+            weight: 80,
+            includeInQuery: true
         },
         {
             code: "USA",
@@ -230,7 +239,8 @@ var data = {
             coord: { lat: 37.09024, lng: -95.712891 },
             language: "English",
             title: "United States",
-            weight: 80
+            weight: 80,
+            includeInQuery: true
         }
     ],
 
@@ -240,25 +250,29 @@ var data = {
             title: "Cardiovascular Disease",
             dimension: "GHECAUSES",
             code: "GHE110",
-            value: 0
+            value: 0,
+            includeInQuery: true
         },
         {
             title: "Diabetes Melitus",
             dimension: "GHECAUSES",
             code: "GHE080",
-            value: 0
+            value: 0,
+            includeInQuery: true
         },
         {
             title: "Malignant Neoplasms",
             dimension: "GHECAUSES",
             code: "GHE061",
-            value: 0
+            value: 0,
+            includeInQuery: true
         },
         {
             title: "Respiratory Diseases",
             dimension: "GHECAUSES",
             code: "GHE117",
-            value: 0
+            value: 0,
+            includeInQuery: true
         }
     ],
 
