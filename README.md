@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 81dbadbd97ef8363efa5396dfa39b66022d7a1a2
 # project-1-morbidity
 
 
@@ -84,6 +87,8 @@ This function is currently blocked in the public system.
 jsonp   When specifying a JSON format, adding the callback or jsonp parameter will wrap the returned javascript in the specified function.
     cache   The cache parameter is used to force certain caching behaviours when the cache is enabled on the web service. The only currently allowed option is refresh which forces the web service to regenerate the underlying XML even if there is a non-expired version of the data currently available in the cache.
     x-* x- parameters are arbitrary. They are passed to the web services and returned through the QueryParameter element in the XML response. They are a way of providing user specified input to XSLT transforms. Note that when X parameters are used, the transformed response (generated if you have specified format and profile parameters) will not be cached however the underlying XML will continue to be cached.
+<<<<<<< HEAD
+=======
 =======
 china 	35.86166	104.195397	China
 india 20.593684	78.96288	India
@@ -103,3 +108,4 @@ Items to consider/research futher....
 
 1. The heat map code uses JSON. Do we need a link for JSON and an "AJAX" call?? 
 >>>>>>> b9a6dd2e293be8ec9c43ed87ebce075c7af4c04f
+>>>>>>> 81dbadbd97ef8363efa5396dfa39b66022d7a1a2
