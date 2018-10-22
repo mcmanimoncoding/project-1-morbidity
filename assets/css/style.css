@@ -1,5 +1,5 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One');
+@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One|Anton');
 
 /* Set the box sizing so the size includes padding and border */
 * {
@@ -12,6 +12,14 @@
     align-self: flex-end;
 }
 
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 body {
     font-family: 'Marcellus SC', serif;
 }
@@ -20,36 +28,64 @@ header {
     color: white;
     text-align: center;
     height: 60px;
+    position: relative;
 }
 
 .content {
+    width: 100%;
     margin-bottom: 3rem;
+    position: relative;
 }
 
-/* .container > .row > .col {
+.container > .row > .col {
+    padding: 10px;
+}
+
+
+
+/* .container {
     border: solid 1px;
 
 } */
 
-#left-nav .btn-group {
-    margin-bottom: .2rem;
+#nav-bar {
+    position: relative;
 }
 
-#left-nav .btn-group > .btn:first-of-type{
+#nav-bar .btn-group {
+    margin: .2rem;
+}
+
+#nav-bar .btn-group > .btn:first-of-type{
     text-align: right;
-    width: 160px;
+    /* width: 180px; */
+}
+
+#nav-bar .btn-group i {
+    margin-top: 3px;
+}
+
+.map-column {
+    height: 400px;
 }
 
 #googleMap {
-    height: 400px;
+    height: 100%;
     width: 100%;
     border-radius: 4px;
+}
+
+.spinner { 
+    display: block;
+    margin-left: 40%;
+    color: #17a2b8;
 }
 
 footer {
     height: 2rem;
     line-height: 2rem;
     color: white;
+    position: relative;
 }
 
 footer .footer-copyright {
@@ -80,36 +116,42 @@ footer .footer-copyright {
 }
 
 
-.statistics {
+/* .statistics {
 
 background-color: blue; 
 
-}
+} */
 
 .statistics .card-header {
-background-color: lightgrey; 
+background-color: white; 
 text-align: center; 
-color: #17a2b8;
+color:black;
+padding: 15px; 
+}
 
+
+.statistics .disease-title {
+background-color: white; 
+color: #17a2b8;
+text-align: center; 
+padding: 10px; 
+font-family: 'Anton', sans-serif;
+list-style: none;
 
 
 }
 
 .statistics .list-group {
-
-background-color: hotpink; 
-font-size: large;
+    background-color: #17a2b8;
+    color:white; 
+    text-align: center; 
+  
 }
-
-.statistics .disease-title {
-
-background-color: orange; 
-padding: 5%;
-}
-
+    
 .statistics .list-group-item {
-background-color: purple; 
-padding: 1%;
-font-size: small;
+background-color:white;
+color: black; 
+text-align: center;
+font-family: 'Anton', sans-serif; 
 
 }
