@@ -28,7 +28,7 @@ var mainController = {
             queryUrl += ";COUNTRY:" + country.code;
         });
 
-        console.log(queryUrl);
+        // console.log(queryUrl);
 
         //create simplified object and store in data
         $.ajax({
@@ -76,7 +76,7 @@ var mainController = {
                 });
             });
 
-            console.log(data.countries);
+            // console.log(data.countries);
 
             // pass the processed data to uiController to populate map
             uiController.populateMap(data.diseaseGroups, data.countries);
@@ -111,9 +111,24 @@ var mainController = {
         var codesArray = dataAttr.codes.split("|");
         $.each(data.diseaseGroups, function () {
             if (this.code === codesArray[0]) {
-                this.include = dataAttr.include;
+                if(codesArray[1] == "*") {
+                    this.include = dataAttr.include;
+                } else {
+                    var countryIndex = this.includeCountries.indexOf(codesArray[1]);
+                    if(dataAttr.include) {
+                        if(countryIndex === -1) {
+                            this.includeCountries.push(codesArray[1]);
+                        }
+                    } else {
+                        if(countryIndex !== -1) {
+                            this.includeCountries.splice(countryIndex, 1);
+                        }
+                    }
+                }
             }
         });
+
+        console.log(data.diseaseGroups);
 
         // TODO: Figure out how to toggle the countries off and on.
 
