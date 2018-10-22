@@ -1,7 +1,6 @@
 //Build Cotroller object for logic controller
 var mainController = {
 
-
     //Inititialization Function - App
     init: function () {
         // build left nav bar content
@@ -10,7 +9,6 @@ var mainController = {
         // load the data and render the map
         mainController.loadData();
     },
-
 
     //Functions for retreiving data from WHO 
     fetchHealthData: function (countries, diseases, callback) {
@@ -27,8 +25,6 @@ var mainController = {
         countries.forEach(function (country) {
             queryUrl += ";COUNTRY:" + country.code;
         });
-
-        // console.log(queryUrl);
 
         //create simplified object and store in data
         $.ajax({
@@ -76,8 +72,6 @@ var mainController = {
                 });
             });
 
-            // console.log(data.countries);
-
             // pass the processed data to uiController to populate map
             uiController.populateMap(data.diseaseGroups, data.countries);
 
@@ -89,48 +83,57 @@ var mainController = {
         });
     },
 
-    // Left half of split button click
+    // Split button click
     onDropDownClick: function (event) {
         var dataAttr = $(this).data();
 
-        if (dataAttr.include) {
-            // make sure at least one group stays included
-            var gheCount = $(".btn-group > button > i.fa-check-square").length;
-            if (gheCount <= 1) {
-                event.preventDefault();
-                return;
-            }
+        // toggle the check marks and data-include attribute.
+        var leftButton = $(this).closest(".btn-group").children("button").first();
 
+        if (dataAttr.include) {
             $(this).find("i").toggleClass("fa-square fa-check-square");
             dataAttr.include = false;
+
+            var checkedItemCount = $(this).closest(".dropdown-menu").find("i.fa-check-square").length;
+
+            console.log($(this).closest(".dropdown-menu"));
+            console.log(leftButton.children("i"));
+            console.log(checkedItemCount);
+
+            if (checkedItemCount === 0) {
+                leftButton.children("i").toggleClass("fa-check-square", false);
+                leftButton.children("i").toggleClass("fa-square", true);
+                leftButton.attr("data-include", 0);
+            }
         } else {
             $(this).find("i").toggleClass("fa-square fa-check-square");
             dataAttr.include = true;
+
+            leftButton.children("i").toggleClass("fa-check-square", true);
+            leftButton.children("i").toggleClass("fa-square", false);
+            leftButton.attr("data-include", 1);
         }
 
+        // update the array to reflect thechange.
         var codesArray = dataAttr.codes.split("|");
         $.each(data.diseaseGroups, function () {
             if (this.code === codesArray[0]) {
-                if(codesArray[1] == "*") {
+                if (codesArray[1] == "*") {
                     this.include = dataAttr.include;
                 } else {
                     var countryIndex = this.includeCountries.indexOf(codesArray[1]);
-                    if(dataAttr.include) {
-                        if(countryIndex === -1) {
+                    if (dataAttr.include) {
+                        if (countryIndex === -1) {
                             this.includeCountries.push(codesArray[1]);
                         }
                     } else {
-                        if(countryIndex !== -1) {
+                        if (countryIndex !== -1) {
                             this.includeCountries.splice(countryIndex, 1);
                         }
                     }
                 }
             }
         });
-
-        console.log(data.diseaseGroups);
-
-        // TODO: Figure out how to toggle the countries off and on.
 
         $(this).data(dataAttr);
 
@@ -139,7 +142,6 @@ var mainController = {
     },
 
 };
-
 
 //Build Controller object for UI
 var uiController = {
@@ -150,7 +152,6 @@ var uiController = {
         leftNav: "#left-nav",
         spinner: ".spinner"
     },
-
 
     //Use the API data to build the left navigation bar 
     buildLeftNavBar: function (countries, diseases) {
@@ -174,8 +175,6 @@ var uiController = {
                 .prepend("<i class=\"fas fa-check-square fa-pull-left\"></i>")
                 .on("click", mainController.onDropDownClick)
                 .appendTo(dropDown);
-
-
 
             //add the right side of the split button
             var rightButton = $("<button>")
@@ -270,10 +269,8 @@ var uiController = {
             // marker.
             if (zoomLvl !== map.getZoom()) {
                 zoomLvl = map.getZoom();
-                // console.log("Map Zoom Level:", map.getZoom());
                 heatMaps.forEach(function (heatmap) {
                     heatmap.set('radius', zoomLvl * 20);
-                    // console.log("Heatmap Radius:", heatmap.get('radius'));
                 });
             }
         });
@@ -442,8 +439,6 @@ var data = {
             ]
         }
     ],
-
-
 
 };
 
