@@ -3,10 +3,8 @@ var mainController = {
 
     //Inititialization Function - App
     init: function () {
-       //initiating tabs with JQuery UI on right 
-       $( ".tabs-wrapper" ).tabs({
-        event: "mouseover"
-      });  
+        //initiating tabs with JQuery UI on right 
+        $(".tabs-wrapper").tabs();
 
         // build left nav bar content
         uiController.buildNavBar(data.countries, data.diseaseGroups);
@@ -77,9 +75,15 @@ var mainController = {
                 });
             });
 
+
             // pass the processed data to uiController to populate map
-            uiController.populateMap(data.diseaseGroups, data.countries);
-            uiController.buildStatisticsTabs(data.diseaseGroups, data.countries);
+            setTimeout(function () {
+                uiController.populateMap(data.diseaseGroups, data.countries);
+            });
+
+            setTimeout(function () {
+                uiController.buildStatisticsTabs(data.diseaseGroups, data.countries);
+            })
 
             // toggle the map and spinner in reverse
             setTimeout(function () {
@@ -101,11 +105,6 @@ var mainController = {
             dataAttr.include = false;
 
             var checkedItemCount = $(this).closest(".dropdown-menu").find("i.fa-check-square").length;
-
-            console.log($(this).closest(".dropdown-menu"));
-            console.log(leftButton.children("i"));
-            console.log(checkedItemCount);
-
             if (checkedItemCount === 0) {
                 leftButton.children("i").toggleClass("fa-check-square", false);
                 leftButton.children("i").toggleClass("fa-square", true);
@@ -173,7 +172,7 @@ var uiController = {
             $("<button>")
                 .attr({
                     "type": "button",
-                    "class": "btn btn-info btn-sm",
+                    "class": "btn btn-info",
                     "data-codes": disease.code + "|*",
                     "data-include": "true"
                 })
@@ -186,7 +185,7 @@ var uiController = {
             var rightButton = $("<button>")
                 .attr({
                     "type": "button",
-                    "class": "btn btn-sm btn-info dropdown-toggle dropdown-toggle-split",
+                    "class": "btn btn-info dropdown-toggle dropdown-toggle-split",
                     "data-toggle": "dropdown",
                     "aria-haspopup": "true",
                     "aria-expanded": "false"
@@ -226,22 +225,34 @@ var uiController = {
 
     //Function for building and initiating right Statistics
     buildStatisticsTabs: function (diseaseGroups, countries) {
+        diseaseGroups.forEach(function (disease) {
+            var outerTabAnchorId = ("#" + disease.code + "-anchor").toLowerCase();
+            $(outerTabAnchorId).text(disease.title);
 
+            countries.forEach(function (country) {
+                var tabContentId = "#" + disease.code + "-" + country.code + "-tab";
+                var tabContent = $(tabContentId.toLowerCase());
+                var list = $("<ul>").appendTo(tabContent);
 
+                $("<li>")
+                    .html("<strong>Population:</strong> " + country.population.toLocaleString('en'))
+                    .appendTo(list);
 
+                $("<li>")
+                    .html("<strong>Total Cases:</strong> " + country.values[disease.code].toLocaleString('en'))
+                    .appendTo(list);
 
+                $("<li>")
+                    .html("<strong>One Case Per:</strong> " + country.weights[disease.code].toLocaleString('en') + " People")
+                    .appendTo(list);
 
-
-
-
-
-
-
+            });
+        });
     },
 
     //Function for mapping data to Leaflet API
     populateMap: function (diseaseGroups, countries) {
-        var zoomLvl = 1.5;
+        var zoomLvl = 1.8;
 
         var mapProp = {
             center: new google.maps.LatLng(20, 20),
