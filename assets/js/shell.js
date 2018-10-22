@@ -1,41 +1,45 @@
-//Use the API data to build the left navigation bar 
-buildLeftNavBar: function (countries, diseases) {
+//Build the right Statistics Bar
+buildRightStatistics: function (countries, diseases) {
     //for loop to loop through countries
 
-    countries.forEach(function (country) {
-        var topLevNavItem = $("<li>")
-            .addClass("nav-item dropdown v-flex-align-right")
-            .text(country.name)
-            .data("code", country.code)
-            .appendTo(uiController.selectors.leftNav);
-        // add the missing things for dropdown
-        $("<a>")
-            .attr({
-                class: "dropdown-toggle",
-                role: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false",
-                "h-ref": "#"
-            })
-            .appendTo(topLevNavItem);
+    diseases.forEach(function (disease) {
+        //add ul in card for statistics (should this be moved out we only need to do it once not for each country?)
+        var rightStats = $("<ul>")
+            .addClass("list-group list-group-flush")
+            .appendTo("#statistics");
 
-        var dropdownContainer = $("<ul>")
-            .attr({
-                class: "dropdown-menu", "aria-labelledby": "navbarDropdownMenuLink"
-            })
-            .appendTo(topLevNavItem);
+        // add Disease
+        var rightDisease = $("<li>")
+            .addClass("disease-title")
+            .text(disease.title)
+            .appendTo(rightStats);
 
-        diseases.forEach(function (disease) {
+
+        //adding the countries to each disease
+        countries.forEach(function (country) {
+           var rightCountry =  $("<ul>")
+                .addClass("list-group list-group-flush")
+                .text(country.title)
+                .appendTo(rightDisease);
+                
+            //add population stats
             $("<li>")
-                .attr({
-                    class: "dropdown-item",
-                    "h-ref": "#",
-                    "data-code": disease.code
-                })
-                .text(disease.name)
-                .appendTo(dropdownContainer);
+            .addClass("list-group-item")
+            .text("Population: " + country.population)
+            .appendTo(rightCountry);
+
+            //add Instances
+            $("<li>")
+            .addClass("list-group-item")
+            .text("Instances: " + country.values)
+            .appendTo(rightCountry);
+
+            //add Per Capita
+            $("<li>")
+            .addClass("list-group-item")
+            .text("Per Capita: " + ((country.population)/(country.values)))
+            .appendTo(rightCountry);
+ 
         });
     });
 },
-};

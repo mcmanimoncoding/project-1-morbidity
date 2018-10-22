@@ -3,8 +3,13 @@ var mainController = {
 
     //Inititialization Function - App
     init: function () {
+       //initiating tabs with JQuery UI on right 
+       $( ".tabs-wrapper" ).tabs({
+        event: "mouseover"
+      });  
+
         // build left nav bar content
-        uiController.buildLeftNavBar(data.countries, data.diseaseGroups);
+        uiController.buildNavBar(data.countries, data.diseaseGroups);
 
         // load the data and render the map
         mainController.loadData();
@@ -74,6 +79,7 @@ var mainController = {
 
             // pass the processed data to uiController to populate map
             uiController.populateMap(data.diseaseGroups, data.countries);
+            uiController.buildStatisticsTabs(data.diseaseGroups, data.countries);
 
             // toggle the map and spinner in reverse
             setTimeout(function () {
@@ -149,19 +155,19 @@ var uiController = {
     //Add an object to store the selectors
     selectors: {
         googleMap: "#googleMap",
-        leftNav: "#left-nav",
+        navBar: "#nav-bar",
         spinner: ".spinner"
     },
 
     //Use the API data to build the left navigation bar 
-    buildLeftNavBar: function (countries, diseases) {
+    buildNavBar: function (countries, diseases) {
         //for loop to loop through countries
 
         diseases.forEach(function (disease) {
             //add dropdown wrapper
             var dropDown = $("<div>")
                 .addClass("btn-group dropright")
-                .appendTo(uiController.selectors.leftNav);
+                .appendTo(uiController.selectors.navBar);
 
             // add left side of split button
             $("<button>")
@@ -171,7 +177,7 @@ var uiController = {
                     "data-codes": disease.code + "|*",
                     "data-include": "true"
                 })
-                .text(disease.buttonText)
+                .text(disease.title)
                 .prepend("<i class=\"fas fa-check-square fa-pull-left\"></i>")
                 .on("click", mainController.onDropDownClick)
                 .appendTo(dropDown);
@@ -216,6 +222,21 @@ var uiController = {
                     .appendTo(dropdownContainer);
             });
         });
+    },
+
+    //Function for building and initiating right Statistics
+    buildStatisticsTabs: function (diseaseGroups, countries) {
+
+
+
+
+
+
+
+
+
+
+
     },
 
     //Function for mapping data to Leaflet API
@@ -340,7 +361,6 @@ var data = {
     diseaseGroups: [
         {
             title: "Cardiovascular Diseases",
-            buttonText: "Cardiovascular Diseases",
             dimension: "GHECAUSES",
             code: "GHE110",
             include: true,
@@ -365,7 +385,6 @@ var data = {
         },
         {
             title: "Diabetes Mellitus",
-            buttonText: "Diabetes Mellitus",
             dimension: "GHECAUSES",
             code: "GHE080",
             include: true,
@@ -390,7 +409,6 @@ var data = {
         },
         {
             title: "Malignant Neoplasms",
-            buttonText: "Malignant Neoplasms",
             dimension: "GHECAUSES",
             code: "GHE061",
             include: true,
@@ -415,7 +433,6 @@ var data = {
         },
         {
             title: "Chronic obstructive pulmonary disease",
-            buttonText: "COPD",
             dimension: "GHECAUSES",
             code: "GHE118",
             include: true,

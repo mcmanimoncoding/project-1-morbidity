@@ -46,22 +46,20 @@ header {
 
 } */
 
-#left-nav {
+#nav-bar {
     position: relative;
 }
 
-#left-nav .btn-group {
-    position: relative;
-    left: -10px;
-    margin-bottom: .2rem;
+#nav-bar .btn-group {
+    margin: .2rem;
 }
 
-#left-nav .btn-group > .btn:first-of-type{
+#nav-bar .btn-group > .btn:first-of-type{
     text-align: right;
-    width: 180px;
+    /* width: 180px; */
 }
 
-#left-nav .btn-group i {
+#nav-bar .btn-group i {
     margin-top: 3px;
 }
 
