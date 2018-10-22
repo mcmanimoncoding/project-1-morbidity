@@ -98,7 +98,7 @@ color: #17a2b8;
 .statistics .list-group {
 
 background-color: hotpink; 
-
+font-size: large;
 }
 
 .statistics .disease-title {
@@ -110,5 +110,6 @@ padding: 5%;
 .statistics .list-group-item {
 background-color: purple; 
 padding: 1%;
+font-size: small;
 
 }
