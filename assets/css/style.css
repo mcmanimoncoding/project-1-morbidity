@@ -25,8 +25,10 @@ body {
 header {
     color: white;
     text-align: center;
-    height: 60px;
     position: relative;
+}
+header h1 {
+    font-size: 24px;
 }
 
 .content {
@@ -82,6 +84,9 @@ footer {
 footer .footer-copyright {
     font-size: small;
 }
+.fa-angle-right {
+    color:#17a2b8;
+}
 
 li.ui-state-active {
     background-color: #17a2b8 !important; 
@@ -118,7 +123,9 @@ li.ui-state-active {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-
+    header h1 {
+        font-size: 30px;
+    }
     
 }
 
@@ -129,5 +136,8 @@ li.ui-state-active {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
+    header h1 {
+        font-size: 36px;
+    }
 
 }

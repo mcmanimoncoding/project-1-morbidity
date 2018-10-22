@@ -232,18 +232,20 @@ var uiController = {
             countries.forEach(function (country) {
                 var tabContentId = "#" + disease.code + "-" + country.code + "-tab";
                 var tabContent = $(tabContentId.toLowerCase());
-                var list = $("<ul>").appendTo(tabContent);
+                var list = $("<ul>")
+                    .addClass("fa-ul")
+                    .appendTo(tabContent);
 
                 $("<li>")
-                    .html("<strong>Population:</strong> " + country.population.toLocaleString('en'))
+                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Population:</strong> " + country.population.toLocaleString('en'))
                     .appendTo(list);
 
                 $("<li>")
-                    .html("<strong>Total Cases:</strong> " + country.values[disease.code].toLocaleString('en'))
+                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Total Cases:</strong> " + country.values[disease.code].toLocaleString('en'))
                     .appendTo(list);
 
                 $("<li>")
-                    .html("<strong>One Case Per:</strong> " + country.weights[disease.code].toLocaleString('en') + " People")
+                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>One Case Per:</strong> " + country.weights[disease.code].toLocaleString('en') + " People")
                     .appendTo(list);
 
             });
