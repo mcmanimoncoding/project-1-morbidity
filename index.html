@@ -5,68 +5,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Geographical Mortality from Chronic Disease</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
- <link rel="stylesheet" type="text/css" href="style.css">
- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-light bg-info">
-                <a class="navbar-brand" href="#">Geographical Morbidity</a>
-              </nav>
-    </div>
-    <div class="container content">
-        <div class="row">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANi4mh1T2UD4_B5H-V_yUTgyT5ixjxRVw&libraries=visualization"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
 
-            <div class="col-2">
-                    <ul class="nav flex-column">
-                            <li class="nav-item">
-                              <a class="nav-link active" href="#">Active</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                          </ul>
+    <script src="assets/js/app.js"></script>
+
+    <header class="bg-info">
+        <div class="container">
+            <h1>Geographical Mortality from Chronic Disease</h1>
+        </div>
+    </header>
+
+    <div class="content mt-2">
+        <div class="container">
+
+            <div class="row m-2">
+                <div class="col border">
+                    <div id="nav-bar" class="row justify-content-center">
+                    </div>
+                </div>
             </div>
 
-       
-        <div class="col-8">
-            <div class="card">
-                <div class="card-body">
-                    This is where our map will go.
+            <div class="row m-2">
+                <div class="col border map-column">
+                    <div id="googleMap">
+                    </div>
+                    <div class="spinner fa-5x vertical-center d-none">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="row m-2">
+                <div class="col border">
+                    <div class="sub-title">
+                            <h6>Global Health Estimates 2016: Deaths by Cause, Age, Sex, by Country and by Region, 2000-2016. Geneva, World Health Organization, 2018</h6>
+                        </div>
+                    <div id="outer-tabs" class="tabs-wrapper">
+                        <ul>
+                            <li>
+                                <a id="ghe110-anchor" href="#ghe110-tab">Cardio</a>
+                            </li>
+                            <li>
+                                <a id="ghe080-anchor" href="#ghe080-tab">Diabetes</a>
+                            </li>
+                            <li>
+                                <a id="ghe061-anchor" href="#ghe061-tab">Neoplasms</a>
+                            </li>
+                            <li>
+                                <a id="ghe118-anchor" href="#ghe118-tab">COPD</a>
+                            </li>
+                        </ul>
+                        <div id="ghe110-tab" class="outer-tab-content">
+                            <div id="ghe110-tabs" class="tabs-wrapper">
+                                <ul>
+                                    <li>
+                                        <a id="ghe110-bra-anchor" href="#ghe110-bra-tab">Brazil</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe110-chn-anchor" href="#ghe110-chn-tab">China</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe110-ind-anchor" href="#ghe110-ind-tab">India</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe110-idn-anchor" href="#ghe110-idn-tab">Indonesia</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe110-usa-anchor" href="#ghe110-usa-tab">United States</a>
+                                    </li>
+                                </ul>
+                                <div id="ghe110-bra-tab">
+
+                                </div>
+                                <div id="ghe110-chn-tab">
+
+                                </div>
+                                <div id="ghe110-ind-tab">
+
+                                </div>
+                                <div id="ghe110-idn-tab">
+
+                                </div>
+                                <div id="ghe110-usa-tab">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ghe080-tab" class="outer-tab-content">
+                            <div id="ghe080-tabs" class="tabs-wrapper">
+                                <ul>
+                                    <li>
+                                        <a id="ghe080-bra-anchor" href="#ghe080-bra-tab">Brazil</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe080-chn-anchor" href="#ghe080-chn-tab">China</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe080-ind-anchor" href="#ghe080-ind-tab">India</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe080-idn-anchor" href="#ghe080-idn-tab">Indonesia</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe080-usa-anchor" href="#ghe080-usa-tab">United States</a>
+                                    </li>
+                                </ul>
+                                <div id="ghe080-bra-tab">
+
+                                </div>
+                                <div id="ghe080-chn-tab">
+
+                                </div>
+                                <div id="ghe080-ind-tab">
+
+                                </div>
+                                <div id="ghe080-idn-tab">
+
+                                </div>
+                                <div id="ghe080-usa-tab">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="ghe061-tab" class="outer-tab-content">
+                            <div id="ghe061-tabs" class="tabs-wrapper">
+                                <ul>
+                                    <li>
+                                        <a id="ghe061-bra-anchor" href="#ghe061-bra-tab">Brazil</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe061-chn-anchor" href="#ghe061-chn-tab">China</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe061-ind-anchor" href="#ghe061-ind-tab">India</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe061-idn-anchor" href="#ghe061-idn-tab">Indonesia</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe061-usa-anchor" href="#ghe061-usa-tab">United States</a>
+                                    </li>
+                                </ul>
+                                <div id="ghe061-bra-tab">
+
+                                </div>
+                                <div id="ghe061-chn-tab">
+
+                                </div>
+                                <div id="ghe061-ind-tab">
+
+                                </div>
+                                <div id="ghe061-idn-tab">
+
+                                </div>
+                                <div id="ghe061-usa-tab">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="ghe118-tab" class="outer-tab-content">
+                            <div id="ghe118-tabs" class="tabs-wrapper">
+                                <ul>
+                                    <li>
+                                        <a id="ghe118-bra-anchor" href="#ghe118-bra-tab">Brazil</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe118-chn-anchor" href="#ghe118-chn-tab">China</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe118-ind-anchor" href="#ghe118-ind-tab">India</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe118-idn-anchor" href="#ghe118-idn-tab">Indonesia</a>
+                                    </li>
+                                    <li>
+                                        <a id="ghe118-usa-anchor" href="#ghe118-usa-tab">United States</a>
+                                    </li>
+                                </ul>
+                                <div id="ghe118-bra-tab">
+
+                                </div>
+                                <div id="ghe118-chn-tab">
+
+                                </div>
+                                <div id="ghe118-ind-tab">
+
+                                </div>
+                                <div id="ghe118-idn-tab">
+
+                                </div>
+                                <div id="ghe118-usa-tab">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
-
-        <div class="col-2">
-                <div class="card">
-                        <div class="card-body">
-                            This is where statistics will go, 
-                        </div>
-                    </div>
-        </div>
     </div>
-    <footer class="footer bg-dark fixed-bottom">
-            <div class="container text-center text-md-left">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center mt-1">
+
+    <footer class="footer bg-info fixed-bottom">
+        <div class="container">
+            <div class="text-center text-md-left">
+                <div class="footer-copyright text-center">
                     <span class="muted-text">Copyright, Team Pandemic, 2018 ©</span>
                 </div>
-                <!-- Copyright -->
             </div>
-        </footer>
-    
-
+        </div>
+    </footer>
 
 </body>
 

@@ -1,3 +1,133 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One|Anton');
+
+/* Set the box sizing so the size includes padding and border */
+* {
+    box-sizing: border-box;
+  }
+
+.v-flex-align-right {
+    align-self: flex-end;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+body {
+    font-family: 'Marcellus SC', serif;
+}
+
+header {
+    color: white;
+    text-align: center;
+    height: 60px;
+    position: relative;
+}
+
 .content {
+    width: 100%;
     margin-bottom: 3rem;
+    position: relative;
+}
+
+.container > .row > .col {
+    padding: 10px;
+}
+
+#nav-bar {
+    position: relative;
+}
+
+#nav-bar .btn-group {
+    margin: .2rem;
+}
+
+#nav-bar .btn-group > .btn:first-of-type{
+    text-align: right;
+    /* width: 180px; */
+}
+
+#nav-bar .btn-group i {
+    margin-top: 3px;
+}
+
+.map-column {
+    height: 400px;
+}
+
+#googleMap {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.spinner { 
+    display: block;
+    margin-left: 40%;
+    color: #17a2b8;
+}
+
+footer {
+    height: 2rem;
+    line-height: 2rem;
+    color: white;
+    position: relative;
+}
+
+footer .footer-copyright {
+    font-size: small;
+}
+
+li.ui-state-active {
+    background-color: #17a2b8 !important; 
+    color:white !important; 
+    border-color: gray !important;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: .3rem 1rem;
+    font-family: 'Marcellus SC', serif;
+
+}
+
+.ui-tabs-panel {
+    font-family: 'Marcellus SC', serif;
+}
+.ui-tabs-panel strong {
+    color: #17a2b8;
+}
+
+#outer-tabs .ui-tabs-panel.outer-tab-content {
+    padding: .2rem;
+}
+
+.sub-title {
+    text-align: center;
+    color: #17a2b8;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+
 }
