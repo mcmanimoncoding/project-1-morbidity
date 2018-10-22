@@ -84,7 +84,7 @@ var mainController = {
     },
 
     // Split button click
-    onDropDownClick: function (event) {
+    onDropDownClick: function () {
         var dataAttr = $(this).data();
 
         // toggle the check marks and data-include attribute.
