@@ -39,13 +39,6 @@ header {
     padding: 10px;
 }
 
-
-
-/* .container {
-    border: solid 1px;
-
-} */
-
 #nav-bar {
     position: relative;
 }
@@ -90,7 +83,33 @@ footer .footer-copyright {
     font-size: small;
 }
 
+li.ui-state-active {
+    background-color: #17a2b8 !important; 
+    color:white !important; 
+    border-color: gray !important;
+}
 
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: .3rem 1rem;
+    font-family: 'Marcellus SC', serif;
+
+}
+
+.ui-tabs-panel {
+    font-family: 'Marcellus SC', serif;
+}
+.ui-tabs-panel strong {
+    color: #17a2b8;
+}
+
+#outer-tabs .ui-tabs-panel.outer-tab-content {
+    padding: .2rem;
+}
+
+.sub-title {
+    text-align: center;
+    color: #17a2b8;
+}
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
@@ -110,46 +129,5 @@ footer .footer-copyright {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
-
-}
-
-
-/* .statistics {
-
-background-color: blue; 
-
-} */
-
-.statistics .card-header {
-background-color: white; 
-text-align: center; 
-color:black;
-padding: 15px; 
-}
-
-
-.statistics .disease-title {
-background-color: white; 
-color: #17a2b8;
-text-align: center; 
-padding: 10px; 
-font-family: 'Anton', sans-serif;
-list-style: none;
-
-
-}
-
-.statistics .list-group {
-    background-color: #17a2b8;
-    color:white; 
-    text-align: center; 
-  
-}
-    
-.statistics .list-group-item {
-background-color:white;
-color: black; 
-text-align: center;
-font-family: 'Anton', sans-serif; 
 
 }
