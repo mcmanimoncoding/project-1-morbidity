@@ -1,5 +1,5 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One');
+@import url('https://fonts.googleapis.com/css?family=Marcellus+SC|Squada+One|Anton');
 
 /* Set the box sizing so the size includes padding and border */
 * {
@@ -116,3 +116,42 @@ footer .footer-copyright {
 }
 
 
+/* .statistics {
+
+background-color: blue; 
+
+} */
+
+.statistics .card-header {
+background-color: white; 
+text-align: center; 
+color:black;
+padding: 15px; 
+}
+
+
+.statistics .disease-title {
+background-color: white; 
+color: #17a2b8;
+text-align: center; 
+padding: 10px; 
+font-family: 'Anton', sans-serif;
+list-style: none;
+
+
+}
+
+.statistics .list-group {
+    background-color: #17a2b8;
+    color:white; 
+    text-align: center; 
+  
+}
+    
+.statistics .list-group-item {
+background-color:white;
+color: black; 
+text-align: center;
+font-family: 'Anton', sans-serif; 
+
+}
