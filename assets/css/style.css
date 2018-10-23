@@ -70,7 +70,7 @@ header h1 {
 
 .spinner { 
     display: block;
-    margin-left: 40%;
+    margin-left: 45%;
     color: #17a2b8;
 }
 
@@ -84,9 +84,19 @@ footer {
 footer .footer-copyright {
     font-size: small;
 }
+
 .fa-angle-right {
     color:#17a2b8;
 }
+
+.statistics {
+    min-height: 40px;
+}
+
+.statistics .spinner { 
+    margin-left: 47%;
+}
+
 
 li.ui-state-active {
     background-color: #17a2b8 !important; 
