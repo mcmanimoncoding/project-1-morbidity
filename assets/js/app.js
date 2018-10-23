@@ -241,7 +241,7 @@ var uiController = {
 
     //Function for mapping data to Leaflet API
     populateMap: function (diseaseGroups, countries) {
-        var zoomLvl = 1.5;
+        var zoomLvl = 1.80;
 
         var mapProp = {
             center: new google.maps.LatLng(20, 20),
