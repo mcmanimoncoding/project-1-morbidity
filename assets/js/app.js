@@ -44,6 +44,8 @@ var mainController = {
     loadData: function () {
         // toggle the map and spinner
         uiController.showMap(false);
+        uiController.showTabs(false);
+        uiController.showSubtitle(false);
         uiController.showSpinner(true);
 
         mainController.fetchHealthData(data.countries, data.diseaseGroups, function (response) {
@@ -88,7 +90,13 @@ var mainController = {
             // toggle the map and spinner in reverse
             setTimeout(function () {
                 uiController.showSpinner(false);
+                uiController.showSubtitle(true);
                 uiController.showMap(true);
+
+                // if at least one tab was loaded then show the tabs container
+                if (data.tabLoaded = true) {
+                    uiController.showTabs(true);
+                }
             }, 250);
         });
     },
@@ -155,7 +163,9 @@ var uiController = {
     selectors: {
         googleMap: "#googleMap",
         navBar: "#nav-bar",
-        spinner: ".spinner"
+        spinner: ".spinner",
+        subtitle: ".sub-title",
+        tabsWrapper: ".tabs-wrapper"
     },
 
     //Use the API data to build the left navigation bar 
@@ -225,31 +235,88 @@ var uiController = {
 
     //Function for building and initiating right Statistics
     buildStatisticsTabs: function (diseaseGroups, countries) {
+        data.tabLoaded = false;
+        var tabsWrapper = $(uiController.selectors.tabsWrapper);
+
         diseaseGroups.forEach(function (disease) {
+            // define the id of the anchor tag for the outer tab
+            var outerTab = $("#outer-tabs");
             var outerTabAnchorId = ("#" + disease.code + "-anchor").toLowerCase();
-            $(outerTabAnchorId).text(disease.title);
+            var outerTabContentId = ("#" + disease.code + "-tab").toLowerCase();
 
-            countries.forEach(function (country) {
-                var tabContentId = "#" + disease.code + "-" + country.code + "-tab";
-                var tabContent = $(tabContentId.toLowerCase());
-                var list = $("<ul>")
-                    .addClass("fa-ul")
-                    .appendTo(tabContent);
+            // if this disease group is included, set the anchor text make it visible.
+            if (disease.include) {
+                $(outerTabAnchorId).text(disease.title);
+                outerTab.find("ul li:has(a[href='" + outerTabContentId + "'])").removeClass("d-none");
 
-                $("<li>")
-                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Population:</strong> " + country.population.toLocaleString('en'))
-                    .appendTo(list);
+                // loop through the countries to populatet the inner tabs
+                countries.forEach(function (country) {
+                    // define the ids of the tags for the inner tab
+                    var tabId = ("#" + disease.code + "-tabs").toLowerCase()
+                    var tabContentId = ("#" + disease.code + "-" + country.code + "-tab").toLowerCase();
+                    var tab = $(tabId);
+                    var tabContent = $(tabContentId);
 
-                $("<li>")
-                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Total Cases:</strong> " + country.values[disease.code].toLocaleString('en'))
-                    .appendTo(list);
+                    // empty the content before we reload
+                    tabContent.empty();
 
-                $("<li>")
-                    .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>One Case Per:</strong> " + country.weights[disease.code].toLocaleString('en') + " People")
-                    .appendTo(list);
+                    // if the ocuntry is included then populatet he data and make the tab visible.
+                    if (disease.includeCountries.indexOf(country.code) !== -1) {
+                        var list = $("<ul>")
+                            .addClass("fa-ul")
+                            .appendTo(tabContent);
 
+                        $("<li>")
+                            .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Population:</strong> " + country.population.toLocaleString('en'))
+                            .appendTo(list);
+
+                        $("<li>")
+                            .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>Total Cases:</strong> " + country.values[disease.code].toLocaleString('en'))
+                            .appendTo(list);
+
+                        $("<li>")
+                            .html("<span class='fa-li'><i class='fas fa-angle-right'></i></span><strong>One Case Per:</strong> " + country.weights[disease.code].toLocaleString('en') + " People")
+                            .appendTo(list);
+
+                        tabsWrapper.find("ul li:has(a[href='" + tabContentId + "'])").removeClass("d-none");
+
+                        // indicate that we have at least one loaded tab.
+                        data.tabLoaded = true;
+                    } else {
+                        tabsWrapper.find("ul li:has(a[href='" + tabContentId + "'])").addClass("d-none");
+                    }
+
+                    //find the first visible inner tab and set it as active.
+                    var firstVisibleTabIndex = 0;
+
+                    tab.children("ul").children("li").each(function (i, o) {
+                        if (!$(o).hasClass("d-none")) {
+                            firstVisibleTabIndex = i;
+                            return false;
+                        }
+                    });
+
+                    tab.tabs("option", "active", firstVisibleTabIndex);
+                });
+            } else {
+                outerTab.find("ul li:has(a[href='" + outerTabContentId + "'])").addClass("d-none");
+            }
+
+            //find the first visible outer tab and set it as active.
+            var firstVisibleTabIndex = 0;
+
+            outerTab.children("ul").children("li").each(function (i, o) {
+                if (!$(o).hasClass("d-none")) {
+                    firstVisibleTabIndex = i;
+                    return false;
+                }
             });
+
+            outerTab.tabs("option", "active", firstVisibleTabIndex);
         });
+
+
+        tabsWrapper.tabs("refresh");
     },
 
     //Function for mapping data to Leaflet API
@@ -316,11 +383,21 @@ var uiController = {
 
     showSpinner: function (show) {
         $(this.selectors.spinner).toggleClass("d-none", !show);
+    },
+
+    showSubtitle: function (show) {
+        $(this.selectors.subtitle).toggleClass("d-none", !show);
+    },
+
+    showTabs: function (show) {
+        $(this.selectors.tabsWrapper).toggleClass("d-none", !show);
     }
 };
 
 //Build Controller object for data
 var data = {
+
+    tabLoaded: false,
 
     countries: [
         {
